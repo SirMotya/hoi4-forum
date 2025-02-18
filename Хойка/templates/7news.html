@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Новости и обновления</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="nav-buttons">
+                <a href="/">Форум</a>
+                <a href="/news">Новости</a>
+                <a href="/support">Поддержка</a>
+            </div>
+            {{if .Username}}
+            <div class="user-panel">
+                <span>{{.Username}}</span>
+                <a href="/profile/{{.Username}}" class="profile-button">Профиль</a>
+                <form action="/logout" method="post" style="display: inline;">
+                    <button type="submit">Выйти</button>
+                </form>
+            </div>
+            {{else}}
+            <div class="auth-buttons">
+                <a href="/login" class="auth-button">Войти</a>
+                <a href="/register" class="auth-button">Регистрация</a>
+            </div>
+            {{end}}
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="forum-title">Новости и обновления</h1>
+
+        <div class="forum-section">
+            <h2>Последние новости</h2>
+            <div class="forum-topics">
+                <div class="topic">
+                    <h3>Анонс нового дополнения: "Война за будущее"</h3>
+                    <p>Дата выпуска: 28 января 2025</p>
+                    <p>В предстоящем дополнении "Война за будущее" игроки смогут окунуться в альтернативную историю, где Вторую мировую войну удалось избежать, а ключевые страны начали гонку за технологическое превосходство. Новые фракции, механики и уникальные миссии ждут вас!</p>
+                </div>
+                <div class="topic">
+                    <h3>Интервью с разработчиками: Будущее игры</h3>
+                    <p>Дата публикации: 21 января 2025</p>
+                    <p>Мы побеседовали с главными разработчиками о планах на будущее и новых особенностях, которые появятся в следующих обновлениях. В интервью обсуждаются ключевые моменты, над которыми команда сейчас работает, и как игроки могут повлиять на развитие игры.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="forum-section">
+            <h2>Патч-ноты</h2>
+            <div class="forum-topics">
+                <div class="topic">
+                    <h3>Обновление 1.3: Ремесло войны</h3>
+                    <p>Дата выпуска: 28 января 2025</p>
+                    <ul>
+                        <li>Добавлена новая миссия "Лабиринты Судьбы".</li>
+                        <li>Исправлен баг с достижением "Экономист" (теперь достижение правильно фиксируется после достижения максимальной экономики).</li>
+                        <li>Обновлены балансы войск, улучшена АИ для противников.</li>
+                        <li>Оптимизация загрузки и исправление мелких ошибок в интерфейсе.</li>
+                    </ul>
+                </div>
+                <div class="topic">
+                    <h3>Обновление 1.2: Улучшения</h3>
+                    <p>Дата выпуска: 14 января 2025</p>
+                    <ul>
+                        <li>Улучшено качество текстур на картах.</li>
+                        <li>Исправлены проблемы с севшими на зависших экранах загрузки.</li>
+                        <li>Теперь можно переключаться между кампаниями прямо из главного меню.</li>
+                        <li>Дополнительные улучшения стабильности игры и исправления багов.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

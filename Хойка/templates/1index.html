@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Hearts of Iron IV - Форум</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="nav-buttons">
+                <a href="/">Форум</a>
+                <a href="/news">Новости</a>
+                <a href="/support">Поддержка</a>
+            </div>
+            {{if .Username}}
+            <div class="user-panel">
+                <span>{{.Username}}</span>
+                <a href="/profile/{{.Username}}" class="profile-button">Профиль</a>
+                <form action="/logout" method="post" style="display: inline;">
+                    <button type="submit">Выйти</button>
+                </form>
+            </div>
+            {{else}}
+            <div class="auth-buttons">
+                <a href="/login" class="auth-button">Войти</a>
+                <a href="/register" class="auth-button">Регистрация</a>
+            </div>
+            {{end}}
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="forum-title">Форум Hearts of Iron IV</h1>
+
+        {{if .Username}}
+        <div class="create-topic">
+            <a href="/create-topic" class="create-topic-button">📝 Создать новую тему</a>
+        </div>
+        {{end}}
+
+        <div class="forum-section">
+            <h2>📋 Темы обсуждения</h2>
+            <div class="forum-topics">
+                {{range .Topics}}
+                <div class="topic">
+                    <div class="topic-content">
+                        <div class="topic-main">
+                            <h3><a href="/topic?id={{.ID}}">{{.Title}}</a></h3>
+                            <div class="topic-meta">
+                                <span class="author">👤 <a href="/profile/{{.Author}}" class="author-link">{{.Author}}</a></span> | 
+                                <span class="date">📅 {{.CreatedAt}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

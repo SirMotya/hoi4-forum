@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добро пожаловать</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-y: scroll;
+            background-color: #121212; /* Темный фон */
+            color: #e0e0e0; /* Светлый текст */
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        .header span {
+            margin-right: 20px;
+        }
+        .header button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .nav-buttons a {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .nav-buttons a:hover {
+            background-color: #45a049;
+        }
+        h1 {
+            color: #4caf50; /* Зеленый заголовок */
+            margin-top: 80px; /* Отступ сверху, чтобы заголовок не перекрывался фиксированной шапкой */
+            text-align: center;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: calc(100vh - 100px); /* Высота контента за вычетом высоты шапки */
+            text-align: center;
+        }
+        .content p {
+            width: 50%;
+            margin: 0 auto;
+        }
+        .bottom-content {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <span>{{.Username}}</span>
+            <form action="/logout" method="post" style="display: inline;">
+                <button type="submit">Выйти</button>
+            </form>
+        </div>
+        <div class="nav-buttons">
+            <a href="/">Главная страница</a>
+            <a href="/about">О игре</a>
+            <a href="/characters">Персонажи</a>
+            <a href="/world">Мир игры</a>
+            <a href="/gameplay">Геймплей</a>
+            <a href="/walkthrough">Прохождение</a>
+            <a href="/news">Новости и обновления</a>
+            <a href="/community">Сообщество</a>
+            <a href="/support">Поддержка</a>
+        </div>
+    </div>
+    <h1>Форум по игре HOI4</h1>
+    <div class="content">
+        <div>
+            <p>Дароус, эт мой "частично" первый сайт</p>
+            <p>Эт сайт будет о игре которая отняла у меня жизнь</p>
+            <p>я не трогал траву и не видел женщин уже сто лет</p>
+        </div>
+        <div class="bottom-content">
+            <p>Крч, сайт делал:</p>
+            <p>Матвей Ткачев</p>
+            <p>ИСП212Д</p>
+        </div>
+    </div>
+</body>
+</html>

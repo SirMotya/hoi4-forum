@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="nav-buttons">
+                <a href="/">Форум</a>
+                <a href="/news">Новости</a>
+                <a href="/support">Поддержка</a>
+            </div>
+            {{if .Username}}
+            <div class="user-panel">
+                <span>{{.Username}}</span>
+                <a href="/profile/{{.Username}}" class="profile-button">Профиль</a>
+                <form action="/logout" method="post" style="display: inline;">
+                    <button type="submit">Выйти</button>
+                </form>
+            </div>
+            {{else}}
+            <div class="auth-buttons">
+                <a href="/login" class="auth-button">Войти</a>
+                <a href="/register" class="auth-button">Регистрация</a>
+            </div>
+            {{end}}
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="profile-section">
+            <div class="profile-header">
+                <h1>Профиль пользователя {{.ProfileData.Username}}</h1>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Создано тем:</span>
+                        <span class="stat-value">{{.ProfileData.TopicsCount}}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Написано комментариев:</span>
+                        <span class="stat-value">{{.ProfileData.CommentsCount}}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Репутация:</span>
+                        <span class="stat-value">{{.ProfileData.Reputation}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-content">
+                <div class="recent-activity">
+                    <h2>Последние темы</h2>
+                    {{range .ProfileData.RecentTopics}}
+                    <div class="activity-item">
+                        <a href="/topic?id={{.ID}}">{{.Title}}</a>
+                        <span class="activity-date">{{.CreatedAt}}</span>
+                    </div>
+                    {{end}}
+                </div>
+            </div>
+
+            <div class="profile-comments-section">
+                <h2>Комментарии к профилю</h2>
+                {{range .ProfileComments}}
+                <div class="profile-comment">
+                    <div class="comment-content">{{.Content}}</div>
+                    <div class="comment-meta">
+                        <span class="author">👤 <a href="/profile/{{.Author}}">{{.Author}}</a></span>
+                        <span class="date">📅 {{.CreatedAt}}</span>
+                    </div>
+                </div>
+                {{end}}
+
+                {{if .Username}}
+                <form action="/profile/{{.ProfileData.Username}}/comment" method="post" class="comment-form">
+                    <textarea name="content" placeholder="Оставьте комментарий в профиле..." required></textarea>
+                    <button type="submit">Отправить комментарий</button>
+                </form>
+                {{else}}
+                <p class="login-prompt">Чтобы оставить комментарий, пожалуйста, <a href="/login">войдите</a></p>
+                {{end}}
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

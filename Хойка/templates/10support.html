@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Поддержка</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="nav-buttons">
+                <a href="/">Форум</a>
+                <a href="/news">Новости</a>
+                <a href="/support">Поддержка</a>
+            </div>
+            {{if .Username}}
+            <div class="user-panel">
+                <span>{{.Username}}</span>
+                <a href="/profile/{{.Username}}" class="profile-button">Профиль</a>
+                <form action="/logout" method="post" style="display: inline;">
+                    <button type="submit">Выйти</button>
+                </form>
+            </div>
+            {{else}}
+            <div class="auth-buttons">
+                <a href="/login" class="auth-button">Войти</a>
+                <a href="/register" class="auth-button">Регистрация</a>
+            </div>
+            {{end}}
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="forum-title">Поддержка</h1>
+
+        <div class="forum-section">
+            <h2>FAQ</h2>
+            <div class="forum-topics">
+                <div class="topic">
+                    <h3>Установка игры</h3>
+                    <p>Как скачать и установить игру? Зайдите на официальную страницу игры в магазине и следуйте инструкциям по загрузке и установке.</p>
+                </div>
+                <div class="topic">
+                    <h3>Системные требования</h3>
+                    <p>Минимальные и рекомендованные системные требования можно найти на официальной странице игры.</p>
+                </div>
+                <div class="topic">
+                    <h3>Офлайн режим</h3>
+                    <p>Можно ли играть без интернета? Да, игра поддерживает одиночный режим без подключения к сети.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="forum-section">
+            <h2>Технические проблемы</h2>
+            <div class="forum-topics">
+                <div class="topic">
+                    <h3>Проблемы с запуском</h3>
+                    <p>Если игра не запускается, проверьте соответствие системным требованиям и обновите драйверы.</p>
+                </div>
+                <div class="topic">
+                    <h3>Низкая производительность</h3>
+                    <p>При низкой производительности попробуйте снизить настройки графики и закрыть фоновые программы.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

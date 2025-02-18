@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать тему</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="nav-buttons">
+                <a href="/">Форум</a>
+                <a href="/news">Новости</a>
+                <a href="/support">Поддержка</a>
+            </div>
+            {{if .Username}}
+            <div class="user-panel">
+                <span>{{.Username}}</span>
+                <a href="/profile/{{.Username}}" class="profile-button">Профиль</a>
+                <form action="/logout" method="post" style="display: inline;">
+                    <button type="submit">Выйти</button>
+                </form>
+            </div>
+            {{else}}
+            <div class="auth-buttons">
+                <a href="/login" class="auth-button">Войти</a>
+                <a href="/register" class="auth-button">Регистрация</a>
+            </div>
+            {{end}}
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="forum-title">Создать новую тему</h1>
+        <div class="forum-section">
+            <form action="/create-topic" method="post" class="topic-form">
+                <input type="text" name="title" placeholder="Название темы" required>
+                <textarea name="content" placeholder="Содержание темы" required></textarea>
+                <button type="submit">Создать тему</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html> 

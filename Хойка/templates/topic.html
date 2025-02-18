@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Topic.Title}}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="nav-buttons">
+                <a href="/">Форум</a>
+                <a href="/news">Новости</a>
+                <a href="/support">Поддержка</a>
+            </div>
+            {{if .Username}}
+            <div class="user-panel">
+                <span>{{.Username}}</span>
+                <a href="/profile/{{.Username}}" class="profile-button">Профиль</a>
+                <form action="/logout" method="post" style="display: inline;">
+                    <button type="submit">Выйти</button>
+                </form>
+            </div>
+            {{else}}
+            <div class="auth-buttons">
+                <a href="/login" class="auth-button">Войти</a>
+                <a href="/register" class="auth-button">Регистрация</a>
+            </div>
+            {{end}}
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="forum-section">
+            <h1 class="topic-title">{{.Topic.Title}}</h1>
+            <div class="topic-main-content">
+                <p>{{.Topic.Content}}</p>
+                <div class="topic-meta">
+                    <span class="author">👤 <a href="/profile/{{.Topic.Author}}" class="author-link">{{.Topic.Author}}</a></span> | 
+                    <span class="date">📅 {{.Topic.CreatedAt}}</span>
+                    <div class="reaction-buttons">
+                        <button class="reaction-btn like {{if eq .Topic.UserReaction 1}}active{{end}}" 
+                                onclick="handleReaction('topic', {{.Topic.ID}}, 1)">
+                            👍 <span>{{.Topic.Likes}}</span>
+                        </button>
+                        <button class="reaction-btn dislike {{if eq .Topic.UserReaction -1}}active{{end}}" 
+                                onclick="handleReaction('topic', {{.Topic.ID}}, -1)">
+                            👎 <span>{{.Topic.Dislikes}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="forum-section">
+            <h2>💬 Комментарии</h2>
+            {{range .Comments}}
+            <div class="comment">
+                <div class="comment-content">{{.Content}}</div>
+                <div class="comment-meta">
+                    <span class="author">👤 <a href="/profile/{{.Author}}" class="author-link">{{.Author}}</a></span> | 
+                    <span class="date">📅 {{.CreatedAt}}</span>
+                    <div class="reaction-buttons">
+                        <button class="reaction-btn like {{if eq .UserReaction 1}}active{{end}}" 
+                                onclick="handleReaction('comment', {{.ID}}, 1)">
+                            👍 <span>{{.Likes}}</span>
+                        </button>
+                        <button class="reaction-btn dislike {{if eq .UserReaction -1}}active{{end}}" 
+                                onclick="handleReaction('comment', {{.ID}}, -1)">
+                            👎 <span>{{.Dislikes}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {{end}}
+
+            {{if .Username}}
+            <form action="/topic?id={{.Topic.ID}}" method="post" class="comment-form">
+                <textarea name="content" placeholder="Напишите свой комментарий..." required></textarea>
+                <button type="submit">📤 Отправить комментарий</button>
+            </form>
+            {{else}}
+            <p class="login-prompt">💡 Чтобы оставить комментарий, пожалуйста, <a href="/login">войдите</a> или <a href="/register">зарегистрируйтесь</a></p>
+            {{end}}
+        </div>
+    </div>
+
+    <script>
+    function handleReaction(type, id, reaction) {
+        if (!{{.Username}}) {
+            window.location.href = '/login';
+            return;
+        }
+
+        fetch('/reaction', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `type=${type}&id=${id}&reaction=${reaction}`
+        }).then(() => {
+            window.location.reload();
+        });
+    }
+    </script>
+</body>
+</html>

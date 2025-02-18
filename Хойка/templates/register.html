@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .auth-form {
+            background-color: var(--secondary-dark);
+            padding: 20px;
+            border-radius: 5px;
+            width: 400px;
+            margin: 100px auto;
+        }
+        .auth-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            background-color: var(--primary-dark);
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            border-radius: 4px;
+        }
+        .auth-form button {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .error-message {
+            color: #ff4444;
+            margin-top: 10px;
+        }
+        .success-message {
+            color: #4caf50;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="nav-buttons">
+                <a href="/">Форум</a>
+                <a href="/news">Новости</a>
+                <a href="/support">Поддержка</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="/login" class="auth-button">Войти</a>
+                <a href="/register" class="auth-button">Регистрация</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-form">
+        <h2>Регистрация</h2>
+        <form action="/register" method="post">
+            <input type="text" name="username" placeholder="Логин" required>
+            <input type="password" name="password" placeholder="Пароль" required>
+            <button type="submit">Зарегистрироваться</button>
+            {{if .RegisterErrorMessage}}
+                <p class="error-message">{{.RegisterErrorMessage}}</p>
+            {{end}}
+            {{if .RegisterSuccessMessage}}
+                <p class="success-message">{{.RegisterSuccessMessage}}</p>
+            {{end}}
+        </form>
+    </div>
+</body>
+</html> 
