@@ -86,13 +86,12 @@ func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 	}
 }
 
-func InitDB() {
+func initDB() *sql.DB {
 	// Открываем базу данных
-	db, err := sql.Open("sqlite3", "./users.db")
+	database, err := sql.Open("sqlite3", "./users.db")
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer db.Close()
 
 	// Создаем таблицы
 	sqlStmt := `
@@ -140,12 +139,13 @@ func InitDB() {
         UNIQUE(user_id, target_type, target_id)
     );
     `
-	_, err = db.Exec(sqlStmt)
+	_, err = database.Exec(sqlStmt)
 	if err != nil {
 		log.Fatalf("%q: %s\n", err, sqlStmt)
 	}
 
 	log.Println("База данных создана успешно")
+	return database
 }
 
 func getUsernameFromSession(r *http.Request) string {
@@ -542,9 +542,7 @@ func handleReaction(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	var err error
-	InitDB()
-
-	db, err = sql.Open("sqlite3", "./users.db")
+	db = initDB()
 	if err != nil {
 		log.Fatal(err)
 	}
